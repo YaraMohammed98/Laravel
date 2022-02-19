@@ -18,6 +18,8 @@
                 <select name="post_creator" class="form-control">
                     <option value="1">Yara</option>
                     <option value="2">Nada</option>
+                    <option value="3">Merehan</option>
+
                 </select>
               </div>
             <button type="submit" class="btn btn-success">Submit</button>
