@@ -22,9 +22,9 @@
   </div>
   <div class="card-body">
   <h5>Name</h5>
-            <p>{{ $post['posted_by'] }}</p>
+            <p>{{ $post->user ?$post->user ->name:"Not Found" }}</p>
             <h5>Email</h5>
-            <p>{{ $post['email'] }}</p>
+            <p>{{ $post->user ?$post->user ->email:"Not Found"}}</p>
             <h5>Created at</h5>
             <p>{{ $post['created_at'] }}</p>
    
