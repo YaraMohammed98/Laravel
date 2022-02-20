@@ -12,7 +12,8 @@ class post extends Model
 
      'title',
      'description',
-     'user_id'
+     'user_id',
+     'created_at'
     ]; //array of columns which allowed to change
 
    public function user()   //relationship between post & user

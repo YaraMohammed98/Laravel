@@ -30,7 +30,7 @@
                     <form method="POST" action="{{route('posts.destroy' ,$post['id'])}}">
                     @csrf
                     @method('DELETE')
-                    <td><button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure that you want to delete this post?')">Delete</button></td>
+                    <td><button type="submit" class="btn btn-danger" onclick="return confirm('You are about to delete this post ,Are you sure')">Delete</button></td>
                     </form>
 
                 </tr>
@@ -39,4 +39,6 @@
             @endforeach
             </tbody>
           </table>
-@endsection
+          {{ $posts->links() }}
+          
+          @endsection

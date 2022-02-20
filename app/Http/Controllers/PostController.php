@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\post;  //using the model which connected to database
@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = post::all();     //all() method exist in model retrive all data
+        $posts = post::paginate(5);     //all() method exist in model retrive all data
         return view('posts.index', [
             'posts' => $posts,
         ]);
@@ -27,12 +27,14 @@ class PostController extends Controller
 
     public function store()
     {
+        $now = Carbon::now();
         //fetch request data
         $requestData = request()->all(); //data in page edit
         post::create([
             'title' => $requestData['title'],
             'description' =>$requestData['description'],
-            'user_id' =>$requestData['post_creator']
+            'user_id' =>$requestData['post_creator'],
+            'created_at'=> Carbon::now()->toDateString()
         ]);
         return redirect()->route('posts.index');
     }
