@@ -1,6 +1,3 @@
-<?php
-use Carbon\Carbon
-?>
 
 @extends('layouts.app')
 
