@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\PostRequest;
+use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\post;  //using the model which connected to database
+use Illuminate\Validation\Rules\Unique;
 
 class PostController extends Controller
 {
@@ -25,8 +29,13 @@ class PostController extends Controller
     }
  
 
-    public function store()
+    public function store(PostRequest $request)
     {
+        // //validation
+        request()->validate([   //validata() take array of validation rules 
+             'title' => ['required','min:3','unique:posts,title']    //value of title is array of validation rule
+         ]); 
+
         //fetch request data
         $requestData = request()->all(); //data in page edit
         post::create([
@@ -38,11 +47,15 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
+
+
+
     public function show($postId)
     {
         $post = post::find($postId); // find() select data base on id(primary key)
         return view('posts.show', [ 'post' => $post ]);
     }
+
 
     public function edit($postId)
     {
@@ -53,8 +66,14 @@ class PostController extends Controller
     ]);
     }
 
-    public function update($postId)
+    
+    public function update($postId,PostRequest $request)
     {
+         $post = post::find($postId);
+         request()->validate([   //validata() take array of validation rules    
+            'title' => [Rule::unique('posts')->ignore($post->id)]//ignore current record 
+        ]);
+
         $requestData = request()->all();
         Post::where('id', $postId)->update(['title'=>$requestData['title'],
          'description' =>$requestData['description'],
@@ -64,6 +83,7 @@ class PostController extends Controller
     }
 
 
+    
     public function destroy($postId)
     {
         post::where('id',$postId)->delete();

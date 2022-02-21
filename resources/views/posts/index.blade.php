@@ -3,6 +3,7 @@
 @section('title') Index @endsection
 
 @section('content')
+
         <div class="text-center mt-5">
             <a href="{{route('posts.create')}}" class="btn btn-success my-3">Create Post</a>
 

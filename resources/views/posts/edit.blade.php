@@ -3,6 +3,7 @@
 @section('title') Edit @endsection
 
 @section('content')
+
 <form method="POST" action="{{route('posts.update', ['post' => $posts['id']])}}" class="mt-5">
     @csrf
     @method('PUT')
@@ -18,7 +19,8 @@
     <div class="mb-3">
         <label class="form-label">Post Creator</label>
         <select name="post_creator" class="form-control">  
-        <option selected disabled style="display:none">Choose a Creator </option>                {             
+        <option selected value="{{$posts->user->id}}">{{$posts->user->name}}</option>
+            
           @foreach($users as $user)
                   {
                     <option value={{$user->id}}>{{$user->name}}</option>
