@@ -27,14 +27,13 @@ class PostController extends Controller
 
     public function store()
     {
-        $now = Carbon::now();
         //fetch request data
         $requestData = request()->all(); //data in page edit
         post::create([
             'title' => $requestData['title'],
             'description' =>$requestData['description'],
             'user_id' =>$requestData['post_creator'],
-            'created_at'=> Carbon::now()->toDateString()
+            //'created_at'=> Carbon::now()->toDateString()
         ]);
         return redirect()->route('posts.index');
     }
