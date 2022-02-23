@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Resources;
-use Illuminate\Support\Str;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,10 @@ class PostResource extends JsonResource
     {
         return 
         [
-         'id' => $this->id,   //this refers to object of PostResource
-         'title'=>$this->title,
-         'description'=>$this->description,
-         'created_at'=>$this->created_at,
-         'slug'=>Str::slug($this->title),
-         'user'=>new UserResource($this->user), //object from UserResource
+        'Name'=>$this->name,
+        'Email'=>$this->email,
+        'user_id'=>$this->id,
+
         ];
     }
 }

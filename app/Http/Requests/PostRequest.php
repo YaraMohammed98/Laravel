@@ -27,7 +27,7 @@ class PostRequest extends FormRequest
         return [
             
             'description' => ['required', 'min:10'], 
-            'post_creator' => ['required','exists:users,id'], //prevent from inspects hacks
+            'user_id' => ['required','exists:users,id'], //prevent from inspects hacks
         ];
 
     }
