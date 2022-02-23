@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\post;  //using the model which connected to database
 use Illuminate\Validation\Rules\Unique;
+
 
 class PostController extends Controller
 {
@@ -18,6 +20,7 @@ class PostController extends Controller
         return view('posts.index', [
             'posts' => $posts,
         ]);
+
     }
 
     public function create()
@@ -42,6 +45,7 @@ class PostController extends Controller
             'title' => $requestData['title'],
             'description' =>$requestData['description'],
             'user_id' =>$requestData['post_creator'],
+            'slug'=>Str::slug($requestData['title'])
             //'created_at'=> Carbon::now()->toDateString()
         ]);
         return redirect()->route('posts.index');
@@ -52,6 +56,7 @@ class PostController extends Controller
 
     public function show($postId)
     {
+        //$post = Post::whereSlug($postId)->get();
         $post = post::find($postId); // find() select data base on id(primary key)
         return view('posts.show', [ 'post' => $post ]);
     }
@@ -66,7 +71,7 @@ class PostController extends Controller
     ]);
     }
 
-    
+
     public function update($postId,PostRequest $request)
     {
          $post = post::find($postId);
@@ -91,4 +96,6 @@ class PostController extends Controller
         //$post->delete();
         return redirect()->route('posts.index');
     }
+
+
 }
